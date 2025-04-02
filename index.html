@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Interview Q&A</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fab fa-js"></i> JavaScript Interview Q&A</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search questions...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <label for="themeToggle"></label>
+                </div>
+                <i class="fas fa-sun"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-question-circle"></i>
+                    <div class="stat-info">
+                        <h3 id="totalQuestions">0</h3>
+                        <p>Total Questions</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tags"></i>
+                    <div class="stat-info">
+                        <h3 id="categories">0</h3>
+                        <p>Categories</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-code"></i>
+                    <div class="stat-info">
+                        <h3 id="codeExamples">0</h3>
+                        <p>Code Examples</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-bookmark"></i>
+                    <div class="stat-info">
+                        <h3 id="bookmarked">0</h3>
+                        <p>Bookmarked</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">All Questions</button>
+                <button class="filter-btn" data-filter="theory">Theory</button>
+                <button class="filter-btn" data-filter="code">Code Examples</button>
+                <button class="filter-btn" data-filter="bookmarked">Bookmarked</button>
+            </div>
+        </div>
+
+        <div class="questions-container">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading questions...</p>
+            </div>
+            <div id="questionsList"></div>
+        </div>
+    </main>
+
+    <div class="question-modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <div class="modal-actions">
+                    <button id="bookmarkBtn"><i class="far fa-bookmark"></i></button>
+                    <button id="closeModal"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>JavaScript Interview Q&A | Interactive Resource for Developers</p>
+            <div class="social-links">
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.0.3/marked.min.js"></script>
+    
+    <!-- Error handling for fetch -->
+    <script>
+        window.addEventListener('error', function(event) {
+            console.error('Global error caught:', event.error);
+            const loadingElement = document.querySelector('.loading');
+            if (loadingElement) {
+                loadingElement.innerHTML = `<p>Error loading data: ${event.error.message}. Try refreshing the page.</p>`;
+            }
+        });
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
