@@ -6,6 +6,7 @@ let bookmarkedQuestions = JSON.parse(localStorage.getItem('bookmarkedQuestions')
 let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
 let currentPage = 1;
 const questionsPerPage = 12;
+let isLoading = false;
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
@@ -31,9 +32,16 @@ const topicsCountSpan = document.getElementById('topics-count');
 const viewedCountSpan = document.getElementById('viewed-count');
 const menuToggleBtn = document.getElementById('menu-toggle');
 const sidebar = document.querySelector('.sidebar');
+const appContainer = document.querySelector('.app-container');
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', async () => {
+  // Create loading indicator
+  showLoading(true);
+  
+  // Create menu overlay
+  createMenuOverlay();
+  
   // Load questions data
   await loadQuestions();
   
@@ -49,7 +57,75 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Handle missing images
   handleMissingImages();
+  
+  // Hide loading
+  showLoading(false);
 });
+
+// Show or hide loading spinner
+function showLoading(show) {
+  // Remove existing loader if any
+  const existingLoader = document.getElementById('app-loader');
+  if (existingLoader) {
+    existingLoader.remove();
+  }
+  
+  if (show) {
+    isLoading = true;
+    
+    // Create and append loader
+    const loader = document.createElement('div');
+    loader.id = 'app-loader';
+    loader.innerHTML = `
+      <div class="loader-content">
+        <div class="loader-spinner"></div>
+        <p>Loading Q&A data...</p>
+      </div>
+    `;
+    document.body.appendChild(loader);
+    
+    // Add the active class after a short delay to trigger animation
+    setTimeout(() => {
+      loader.classList.add('active');
+    }, 10);
+  } else {
+    isLoading = false;
+  }
+}
+
+// Create menu overlay element for mobile
+function createMenuOverlay() {
+  const overlay = document.createElement('div');
+  overlay.className = 'menu-overlay';
+  overlay.id = 'menu-overlay';
+  document.body.appendChild(overlay);
+  
+  // Add event listener to close menu when overlay is clicked
+  overlay.addEventListener('click', () => {
+    toggleMobileMenu(false);
+  });
+}
+
+// Toggle mobile menu with animation
+function toggleMobileMenu(forceState = null) {
+  const overlay = document.getElementById('menu-overlay');
+  
+  // If forceState is provided, set that state
+  // Otherwise toggle the current state
+  const shouldOpen = forceState !== null ? forceState : !sidebar.classList.contains('open');
+  
+  if (shouldOpen) {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+    menuToggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+  } else {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Enable scrolling
+    menuToggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+  }
+}
 
 // Handle missing images with placeholders
 function handleMissingImages() {
@@ -86,6 +162,7 @@ async function loadQuestions() {
     renderQuestions();
   } catch (error) {
     console.error('Error loading questions:', error);
+    questionsGrid.innerHTML = '<div class="error-message">Failed to load questions. Please try refreshing the page.</div>';
   }
 }
 
@@ -100,14 +177,15 @@ function setupEventListeners() {
       
       // Close sidebar on mobile after navigation
       if (window.innerWidth <= 768) {
-        sidebar.classList.remove('open');
+        toggleMobileMenu(false);
       }
     });
   });
   
   // Mobile menu toggle
-  menuToggleBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
+  menuToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    toggleMobileMenu();
   });
   
   // Close sidebar when clicking outside on mobile
@@ -116,7 +194,7 @@ function setupEventListeners() {
         sidebar.classList.contains('open') && 
         !e.target.closest('.sidebar') && 
         !e.target.closest('#menu-toggle')) {
-      sidebar.classList.remove('open');
+      toggleMobileMenu(false);
     }
   });
   
@@ -158,10 +236,28 @@ function setupEventListeners() {
   
   // Handle window resize
   window.addEventListener('resize', debounce(() => {
-    if (window.innerWidth > 768) {
-      sidebar.classList.remove('open');
+    if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+      toggleMobileMenu(false);
     }
   }, 200));
+  
+  // Handle escape key to close menu and modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('show')) {
+        closeModal();
+      } else if (sidebar.classList.contains('open') && window.innerWidth <= 768) {
+        toggleMobileMenu(false);
+      }
+    }
+  });
+  
+  // Stop scrolling when modal or menu is open on mobile
+  modal.addEventListener('touchmove', (e) => {
+    if (!e.target.closest('.modal-content')) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 }
 
 // Switch between pages
