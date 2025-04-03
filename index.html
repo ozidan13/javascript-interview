@@ -1,123 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Interview Q&A</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Interview Q&A</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Chart.js for visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Highlight.js for code syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1><i class="fab fa-js"></i> JavaScript Interview Q&A</h1>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search questions...">
-                <button id="searchBtn"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
-                <div class="toggle-switch">
-                    <input type="checkbox" id="themeToggle">
-                    <label for="themeToggle"></label>
-                </div>
-                <i class="fas fa-sun"></i>
-            </div>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        <h1>JS Q&A</h1>
+      </div>
+      
+      <div class="theme-toggle">
+        <span class="toggle-label">Theme</span>
+        <label class="switch">
+          <input type="checkbox" id="theme-switch">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-page="all-questions">
+          <i class="fas fa-list"></i>
+          <span>All Questions</span>
+        </a>
+        <a href="#" class="nav-item" data-page="bookmarks">
+          <i class="fas fa-bookmark"></i>
+          <span>Bookmarks</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <p>&copy; 2025 Osama Zinhom</p>
+      </div>
+    </aside>
+    
+    <!-- Mobile Menu Button -->
+    <button class="menu-btn" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Search for questions...">
         </div>
-    </header>
-
-    <main class="container">
-        <div class="dashboard">
-            <div class="stats">
-                <div class="stat-card">
-                    <i class="fas fa-question-circle"></i>
-                    <div class="stat-info">
-                        <h3 id="totalQuestions">0</h3>
-                        <p>Total Questions</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-tags"></i>
-                    <div class="stat-info">
-                        <h3 id="categories">0</h3>
-                        <p>Categories</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-code"></i>
-                    <div class="stat-info">
-                        <h3 id="codeExamples">0</h3>
-                        <p>Code Examples</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-bookmark"></i>
-                    <div class="stat-info">
-                        <h3 id="bookmarked">0</h3>
-                        <p>Bookmarked</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-filters">
-                <button class="filter-btn active" data-filter="all">All Questions</button>
-                <button class="filter-btn" data-filter="theory">Theory</button>
-                <button class="filter-btn" data-filter="code">Code Examples</button>
-                <button class="filter-btn" data-filter="bookmarked">Bookmarked</button>
-            </div>
+        <div class="header-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="total-questions">0</span>
+            <span class="stat-label">Questions</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="bookmarked-count">0</span>
+            <span class="stat-label">Bookmarked</span>
+          </div>
         </div>
-
-        <div class="questions-container">
-            <div class="loading">
-                <div class="spinner"></div>
-                <p>Loading questions...</p>
+      </header>
+      
+      <!-- Dashboard Page -->
+      <div class="page-content active" id="dashboard-page">
+        <h2 class="page-title">Interview Questions</h2>
+        
+        <div class="dashboard-grid">
+          <div class="card stats-card">
+            <h3>Statistics</h3>
+            <div class="stats-container">
+              <div class="stat-box">
+                <span class="stat-number" id="total-qs">0</span>
+                <span class="stat-text">Total Questions</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number" id="topics-count">0</span>
+                <span class="stat-text">Topics</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number" id="viewed-count">0</span>
+                <span class="stat-text">Questions Viewed</span>
+              </div>
             </div>
-            <div id="questionsList"></div>
+          </div>
+          
+          <div class="card chart-card">
+            <h3>Questions by Topic</h3>
+            <div class="chart-container">
+              <canvas id="topics-chart"></canvas>
+            </div>
+          </div>
+          
+          <div class="card recent-card">
+            <h3>Recently Viewed</h3>
+            <ul class="recent-list" id="recent-list">
+              <!-- Will be populated by JavaScript -->
+            </ul>
+          </div>
+          
+          <div class="card popular-card">
+            <h3>Popular Questions</h3>
+            <ul class="popular-list" id="popular-list">
+              <!-- Will be populated by JavaScript -->
+            </ul>
+          </div>
         </div>
-    </main>
-
-    <div class="question-modal" id="questionModal">
+      </div>
+      
+      <!-- All Questions Page -->
+      <div class="page-content" id="all-questions-page">
+        <h2 class="page-title">All Questions</h2>
+        
+        <div class="filters-container">
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="basics">Basics</button>
+            <button class="filter-btn" data-filter="advanced">Advanced</button>
+            <button class="filter-btn" data-filter="functions">Functions</button>
+            <button class="filter-btn" data-filter="objects">Objects</button>
+            <button class="filter-btn" data-filter="arrays">Arrays</button>
+          </div>
+          <div class="sort-group">
+            <label for="sort-select">Sort By:</label>
+            <select id="sort-select">
+              <option value="id">ID (Ascending)</option>
+              <option value="id-desc">ID (Descending)</option>
+              <option value="alpha">Alphabetical</option>
+              <option value="alpha-desc">Reverse Alphabetical</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="questions-grid" id="questions-grid">
+          <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <div class="pagination" id="pagination">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Bookmarks Page -->
+      <div class="page-content" id="bookmarks-page">
+        <h2 class="page-title">Bookmarked Questions</h2>
+        
+        <div class="bookmarks-container" id="bookmarks-container">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Question Detail Modal -->
+      <div class="modal" id="question-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-                <div class="modal-actions">
-                    <button id="bookmarkBtn"><i class="far fa-bookmark"></i></button>
-                    <button id="closeModal"><i class="fas fa-times"></i></button>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="modalContent"></div>
-            </div>
+          <div class="modal-header">
+            <h2 id="modal-question-title">Question Title</h2>
+            <button id="bookmark-btn" class="bookmark-btn">
+              <i class="far fa-bookmark"></i>
+            </button>
+            <button id="close-modal" class="close-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-answer" class="answer-content"></div>
+          </div>
         </div>
-    </div>
+      </div>
+    </main>
+  </div>
 
-    <footer>
-        <div class="container">
-            <p>JavaScript Interview Q&A | Interactive Resource for Developers</p>
-            <div class="social-links">
-                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.0.3/marked.min.js"></script>
-    
-    <!-- Error handling for fetch -->
-    <script>
-        window.addEventListener('error', function(event) {
-            console.error('Global error caught:', event.error);
-            const loadingElement = document.querySelector('.loading');
-            if (loadingElement) {
-                loadingElement.innerHTML = `<p>Error loading data: ${event.error.message}. Try refreshing the page.</p>`;
-            }
-        });
-    </script>
-    
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html> 

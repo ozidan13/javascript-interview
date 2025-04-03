@@ -1,4 +1,4 @@
-# JavaScript Interview Q&A Interactive Dashboard
+# JavaScript Interview Q&A
 
 An interactive web application that showcases JavaScript interview questions and answers in an elegant, user-friendly interface.
 
@@ -36,4 +36,4 @@ Simply open `index.html` in your browser to use the application. No build steps 
 
 ## Data Source
 
-The application loads question data from `data_minimal.json`. You can edit this file to add, remove, or modify questions.
+The application loads question data from `datajs.json`. You can edit this file to add, remove, or modify questions.
