@@ -998,5 +998,254 @@
   "id": 200,
   "question": "What is the main difference between Object.values and Object.entries method",
   "answer": "The Object.values() method's behavior is similar to Object.entries() method but it returns an array of values instead [key,value] pairs.\n\n     ```javascript\n     const object = {\n       a: \"Good morning\",\n       b: 100,\n     };\n\n     for (let value of Object.values(object)) {\n       console.log(`${value}`); // 'Good morning \\n100'\n     }\n     ```"
+},{
+  "id": 201,
+  "question": "How can you get the list of keys of any object",
+  "answer": "You can use the `Object.keys()` method which is used to return an array of a given object's own property names, in the same order as we get with a normal loop. For example, you can get the keys of a user object,\n\n     ```javascript\n     const user = {\n       name: \"John\",\n       gender: \"male\",\n       age: 40,\n     };\n\n     console.log(Object.keys(user)); //['name', 'gender', 'age']\n     ```"
+},
+{
+  "id": 202,
+  "question": "How do you create an object with prototype",
+  "answer": "The Object.create() method is used to create a new object with the specified prototype object and properties. i.e, It uses an existing object as the prototype of the newly created object. It returns a new object with the specified prototype object and properties.\n\n     ```javascript\n     const user = {\n       name: \"John\",\n       printInfo: function () {\n         console.log(`My name is ${this.name}.`);\n       },\n     };\n\n     const admin = Object.create(user);\n\n     admin.name = \"Nick\"; // Remember that \"name\" is a property set on \"admin\" but not on \"user\" object\n\n     admin.printInfo(); // My name is Nick\n     ```"
+},
+{
+  "id": 203,
+  "question": "What is a WeakSet",
+  "answer": "WeakSet is used to store a collection of weakly(weak references) held objects. The syntax would be as follows,\n\n     ```javascript\n     new WeakSet([iterable]);\n     ```\n\n     Let's see the below example to explain it's behavior,\n\n     ```javascript\n     var ws = new WeakSet();\n     var user = {};\n     ws.add(user);\n     ws.has(user); // true\n     ws.delete(user); // removes user from the set\n     ws.has(user); // false, user has been removed\n     ```"
+},
+{
+  "id": 204,
+  "question": "What are the differences between WeakSet and Set",
+  "answer": "The main difference is that references to objects in Set are strong while references to objects in WeakSet are weak. i.e, An object in WeakSet can be garbage collected if there is no other reference to it.\n     Other differences are,\n\n     1. Sets can store any value Whereas WeakSets can store only collections of objects\n     2. WeakSet does not have size property unlike Set\n     3. WeakSet does not have methods such as clear, keys, values, entries, forEach.\n     4. WeakSet is not iterable."
+},
+{
+  "id": 205,
+  "question": "List down the collection of methods available on WeakSet",
+  "answer": "Below are the list of methods available on WeakSet,\n\n     1. add(value): A new object is appended with the given value to the weakset\n     2. delete(value): Deletes the value from the WeakSet collection.\n     3. has(value): It returns true if the value is present in the WeakSet Collection, otherwise it returns false.\n\n     Let's see the functionality of all the above methods in an example,\n\n     ```javascript\n     var weakSetObject = new WeakSet();\n     var firstObject = {};\n     var secondObject = {};\n     // add(value)\n     weakSetObject.add(firstObject);\n     weakSetObject.add(secondObject);\n     console.log(weakSetObject.has(firstObject)); //true\n     weakSetObject.delete(secondObject);\n     ```"
+},
+{
+  "id": 206,
+  "question": "What is a WeakMap",
+  "answer": "The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. In this case, keys must be objects and the values can be arbitrary values. The syntax looks like the following:\n\n     ```javascript\n     new WeakMap([iterable]);\n     ```\n\n     Let's see the below example to explain it's behavior,\n\n     ```javascript\n     var ws = new WeakMap();\n     var user = {};\n     ws.set(user);\n     ws.has(user); // true\n     ws.delete(user); // removes user from the map\n     ws.has(user); // false, user has been removed\n     ```"
+},
+{
+  "id": 207,
+  "question": "What are the differences between WeakMap and Map",
+  "answer": "The main difference is that references to key objects in Map are strong while references to key objects in WeakMap are weak. i.e, A key object in WeakMap can be garbage collected if there is no other reference to it.\n     Other differences are,\n\n     1. Maps can store any key type Whereas WeakMaps can store only collections of key objects\n     2. WeakMap does not have size property unlike Map\n     3. WeakMap does not have methods such as clear, keys, values, entries, forEach.\n     4. WeakMap is not iterable."
+},
+{
+  "id": 208,
+  "question": "List down the collection of methods available on WeakMap",
+  "answer": "Below are the list of methods available on WeakMap,\n\n     1. set(key, value): Sets the value for the key in the WeakMap object. Returns the WeakMap object.\n     2. delete(key): Removes any value associated to the key.\n     3. has(key): Returns a Boolean asserting whether a value has been associated to the key in the WeakMap object or not.\n     4. get(key): Returns the value associated to the key, or undefined if there is none.\n        Let's see the functionality of all the above methods in an example,\n\n     ```javascript\n     var weakMapObject = new WeakMap();\n     var firstObject = {};\n     var secondObject = {};\n     // set(key, value)\n     weakMapObject.set(firstObject, \"John\");\n     weakMapObject.set(secondObject, 100);\n     console.log(weakMapObject.has(firstObject)); //true\n     console.log(weakMapObject.get(firstObject)); // John\n     weakMapObject.delete(secondObject);\n     ```"
+},
+{
+  "id": 209,
+  "question": "What is the purpose of uneval",
+  "answer": "The uneval() is an inbuilt function which is used to create a string representation of the source code of an Object. It is a top-level function and is not associated with any object. Let's see the below example to know more about it's functionality,\n\n     ```javascript\n     var a = 1;\n     uneval(a); // returns a String containing 1\n     uneval(function user() {}); // returns \"(function user(){})\"\n     ```\n\n     The `uneval()` function has been deprecated. It is recommended to use `toString()` for functions and `JSON.toStringify()` for other cases.\n\n     ```javascript\n     function user() {}\n     console.log(user.toString()); // returns \"(function user(){})\"\n     ```  "
+},
+{
+  "id": 210,
+  "question": "How do you encode an URL",
+  "answer": "The encodeURI() function is used to encode complete URI which has special characters except (, / ? : @ & = + $ #) characters.\n\n     ```javascript\n     var uri = \"https://mozilla.org/?x=шеллы\";\n     var encoded = encodeURI(uri);\n     console.log(encoded); // https://mozilla.org/?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B\n     ```"
+},
+{
+  "id": 211,
+  "question": "How do you decode an URL",
+  "answer": "The decodeURI() function is used to decode a Uniform Resource Identifier (URI) previously created by encodeURI().\n\n     ```javascript\n     var uri = \"https://mozilla.org/?x=шеллы\";\n     var encoded = encodeURI(uri);\n     console.log(encoded); // https://mozilla.org/?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B\n     try {\n       console.log(decodeURI(encoded)); // \"https://mozilla.org/?x=шеллы\"\n     } catch (e) {\n       // catches a malformed URI\n       console.error(e);\n     }\n     ```"
+},
+{
+  "id": 212,
+  "question": "How do you print the contents of web page",
+  "answer": "The window object provided a print() method which is used to print the contents of the current window. It opens a Print dialog box which lets you choose between various printing options. Let's see the usage of print method in an example,\n\n     ```html\n     <input type=\"button\" value=\"Print\" onclick=\"window.print()\" />\n     ```\n\n     **Note:** In most browsers, it will block while the print dialog is open."
+},
+{
+  "id": 213,
+  "question": "What is the difference between uneval and eval",
+  "answer": "The `uneval` function returns the source of a given object; whereas the `eval` function does the opposite, by evaluating that source code in a different memory area. Let's see an example to clarify the difference,\n\n     ```javascript\n     var msg = uneval(function greeting() {\n       return \"Hello, Good morning\";\n     });\n     var greeting = eval(msg);\n     greeting(); // returns \"Hello, Good morning\"\n     ```"
+},
+{
+  "id": 214,
+  "question": "What is an anonymous function",
+  "answer": "An anonymous function is a function without a name! Anonymous functions are commonly assigned to a variable name or used as a callback function. The syntax would be as below,\n\n     ```javascript\n     function (optionalParameters) {\n       //do something\n     }\n\n     const myFunction = function(){ //Anonymous function assigned to a variable\n       //do something\n     };\n\n     [1, 2, 3].map(function(element){ //Anonymous function used as a callback function\n       //do something\n     });\n     ```\n\n     Let's see the above anonymous function in an example,\n\n     ```javascript\n     var x = function (a, b) {\n       return a * b;\n     };\n     var z = x(5, 10);\n     console.log(z); // 50\n     ```"
+},
+{
+  "id": 215,
+  "question": "What is the precedence order between local and global variables",
+  "answer": "A local variable takes precedence over a global variable with the same name. Let's see this behavior in an example.\n\n     ```javascript\n     var msg = \"Good morning\";\n     function greeting() {\n       msg = \"Good Evening\";\n       console.log(msg); // Good Evening\n     }\n     greeting();\n     ```"
+},
+{
+  "id": 216,
+  "question": "What are javascript accessors",
+  "answer": "ECMAScript 5 introduced javascript object accessors or computed properties through getters and setters. Getters uses the `get` keyword whereas Setters uses the `set` keyword.\n\n     ```javascript\n     var user = {\n       firstName: \"John\",\n       lastName: \"Abraham\",\n       language: \"en\",\n       get lang() {\n         return this.language;\n       },\n       set lang(lang) {\n         this.language = lang;\n       },\n     };\n     console.log(user.lang); // getter access lang as en\n     user.lang = \"fr\";\n     console.log(user.lang); // setter used to set lang as fr\n     ```"
+},
+{
+  "id": 217,
+  "question": "How do you define property on Object constructor",
+  "answer": "The Object.defineProperty() static method is used to define a new property directly on an object, or modify an existing property on an object, and returns the object. Let's see an example to know how to define property,\n\n     ```javascript\n     const newObject = {};\n\n     Object.defineProperty(newObject, \"newProperty\", {\n       value: 100,\n       writable: false,\n     });\n\n     console.log(newObject.newProperty); // 100\n\n     newObject.newProperty = 200; // It throws an error in strict mode due to writable setting\n     ```"
+},
+{
+  "id": 218,
+  "question": "What is the difference between get and defineProperty",
+  "answer": "Both have similar results unless you use classes. If you use `get` the property will be defined on the prototype of the object whereas using `Object.defineProperty()` the property will be defined on the instance it is applied to."
+},
+{
+  "id": 219,
+  "question": "What are the advantages of Getters and Setters",
+  "answer": "Below are the list of benefits of Getters and Setters,\n\n     1. They provide simpler syntax\n     2. They are used for defining computed properties, or accessors in JS.\n     3. Useful to provide equivalence relation between properties and methods\n     4. They can provide better data quality\n     5. Useful for doing things behind the scenes with the encapsulated logic."
+},
+{
+  "id": 220,
+  "question": "Can I add getters and setters using defineProperty method",
+  "answer": "Yes, You can use the `Object.defineProperty()` method to add Getters and Setters. For example, the below counter object uses increment, decrement, add and subtract properties,\n\n     ```javascript\n     var obj = { counter: 0 };\n\n     // Define getters\n     Object.defineProperty(obj, \"increment\", {\n       get: function () {\n         this.counter++;\n         return this.counter;\n       },\n     });\n     Object.defineProperty(obj, \"decrement\", {\n       get: function () {\n         this.counter--;\n         return this.counter;\n       },\n     });\n\n     // Define setters\n     Object.defineProperty(obj, \"add\", {\n       set: function (value) {\n         this.counter += value;\n       },\n     });\n     Object.defineProperty(obj, \"subtract\", {\n       set: function (value) {\n         this.counter -= value;\n       },\n     });\n\n     obj.add = 10;\n     obj.subtract = 5;\n     console.log(obj.increment); //6\n     console.log(obj.decrement); //5\n     ```"
+},
+{
+  "id": 221,
+  "question": "What is the purpose of switch-case",
+  "answer": "The switch case statement in JavaScript is used for decision making purposes. In a few cases, using the switch case statement is going to be more convenient than if-else statements. The syntax would be as below,\n\n     ```javascript\n     switch (expression)\n     {\n         case value1:\n             statement1;\n             break;\n         case value2:\n             statement2;\n             break;\n         .\n         .\n         case valueN:\n             statementN;\n             break;\n         default:\n             statementDefault;\n     }\n     ```\n\n     The above multi-way branch statement provides an easy way to dispatch execution to different parts of code based on the value of the expression."
+},
+{
+  "id": 222,
+  "question": "What are the conventions to be followed for the usage of switch case",
+  "answer": "Below are the list of conventions should be taken care,\n\n     1. The expression can be of type either number or string.\n     2. Duplicate values are not allowed for the expression.\n     3. The default statement is optional. If the expression passed to switch does not match with any case value then the statement within default case will be executed.\n     4. The break statement is used inside the switch to terminate a statement sequence.\n     5. The break statement is optional. But if it is omitted, the execution will continue on into the next case."
+},
+{
+  "id": 223,
+  "question": "What are primitive data types",
+  "answer": "A primitive data type is data that has a primitive value (which has no properties or methods). There are 7 types of primitive data types.\n\n     1. string\n     2. number\n     3. boolean\n     4. null\n     5. undefined\n     6. bigint\n     7. symbol"
+},
+{
+  "id": 224,
+  "question": "What are the different ways to access object properties",
+  "answer": "There are 3 possible ways for accessing the property of an object.\n\n     1. **Dot notation:** It uses dot for accessing the properties\n\n     ```javascript\n     objectName.property;\n     ```\n\n     2. **Square brackets notation:** It uses square brackets for property access\n\n     ```javascript\n     objectName[\"property\"];\n     ```\n\n     3. **Expression notation:** It uses expression in the square brackets\n\n     ```javascript\n     objectName[expression];\n     ```"
+},
+{
+  "id": 225,
+  "question": "What are the function parameter rules",
+  "answer": "JavaScript functions follow below rules for parameters,\n\n     1. The function definitions do not specify data types for parameters.\n     2. Do not perform type checking on the passed arguments.\n     3. Do not check the number of arguments received.\n        i.e, The below function follows the above rules,\n\n     ```javascript\n     function functionName(parameter1, parameter2, parameter3) {\n       console.log(parameter1); // 1\n     }\n     functionName(1);\n     ```"
+},
+{
+  "id": 226,
+  "question": "What is an error object",
+  "answer": "An error object is a built in error object that provides error information when an error occurs. It has two properties: name and message. For example, the below function logs error details,\n\n     ```javascript\n     try {\n       greeting(\"Welcome\");\n     } catch (err) {\n       console.log(err.name + \"<br>\" + err.message);\n     }\n     ```"
+},
+{
+  "id": 227,
+  "question": "When you get a syntax error",
+  "answer": "A SyntaxError is thrown if you try to evaluate code with a syntax error. For example, the below missing quote for the function parameter throws a syntax error\n\n     ```javascript\n     try {\n       eval(\"greeting('welcome)\"); // Missing ' will produce an error\n     } catch (err) {\n       console.log(err.name);\n     }\n     ```"
+},
+{
+  "id": 228,
+  "question": "What are the different error names from error object",
+  "answer": "There are 7 different types of error names returned from error object,\n     | Error Name | Description |\n     |---- | ---------\n     | AggregateError | An error indicating that multiple errors occurred |\n     | EvalError | An error has occurred in the eval() function |\n     | RangeError | An error has occurred with a number \"out of range\" |\n     | ReferenceError | An error due to an illegal reference|\n     | SyntaxError | An error due to a syntax error|\n     | TypeError | An error due to a type error |\n     | URIError | An error due to encodeURI() |"
+},
+{
+  "id": 229,
+  "question": "What are the various statements in error handling",
+  "answer": "Below are the list of statements used in an error handling,\n\n     1. **try:** This statement is used to test a block of code for errors\n     2. **catch:** This statement is used to handle the error\n     3. **throw:** This statement is used to create custom errors.\n     4. **finally:** This statement is used to execute code after try and catch regardless of the result."
+},
+{
+  "id": 230,
+  "question": "What are the two types of loops in javascript",
+  "answer": "1. **Entry Controlled loops:** In this kind of loop type, the test condition is tested before entering the loop body. For example, For Loop and While Loop comes under this category.\n     2. **Exit Controlled Loops:** In this kind of loop type, the test condition is tested or evaluated at the end of the loop body. i.e, the loop body will execute at least once irrespective of test condition true or false. For example, do-while loop comes under this category."
+},
+{
+  "id": 231,
+  "question": "What is nodejs",
+  "answer": "Node.js is a server-side platform built on Chrome's JavaScript runtime for easily building fast and scalable network applications. It is an event-based, non-blocking, asynchronous I/O runtime that uses Google's V8 JavaScript engine and libuv library."
+},
+{
+  "id": 232,
+  "question": "What is an Intl object",
+  "answer": "The Intl object is the namespace for the ECMAScript Internationalization API, which provides language sensitive string comparison, number formatting, and date and time formatting. It provides access to several constructors and language sensitive functions."
+},
+{
+  "id": 233,
+  "question": "How do you perform language specific date and time formatting",
+  "answer": "You can use the `Intl.DateTimeFormat` object which is a constructor for objects that enable language-sensitive date and time formatting. Let's see this behavior with an example,\n\n     ```javascript\n     var date = new Date(Date.UTC(2019, 07, 07, 3, 0, 0));\n     console.log(new Intl.DateTimeFormat(\"en-GB\").format(date)); // 07/08/2019\n     console.log(new Intl.DateTimeFormat(\"en-AU\").format(date)); // 07/08/2019\n     ```"
+},
+{
+  "id": 234,
+  "question": "What is an Iterator",
+  "answer": "An iterator is an object which defines a sequence and a return value upon its termination. It implements the Iterator protocol with a `next()` method which returns an object with two properties: `value` (the next value in the sequence) and `done` (which is true if the last value in the sequence has been consumed)."
+},
+{
+  "id": 235,
+  "question": "How does synchronous iteration works",
+  "answer": "Synchronous iteration was introduced in ES6 and it works with below set of components,\n\n     **Iterable:** It is an object which can be iterated over via a method whose key is Symbol.iterator.\n\n     **Iterator:** It is an object returned by invoking `[Symbol.iterator]()` on an iterable. This iterator object wraps each iterated element in an object and returns it via `next()` method one by one.\n\n     **IteratorResult:** It is an object returned by `next()` method. The object contains two properties; the `value` property contains an iterated element and the `done` property determines whether the element is the last element or not.\n\n     Let's demonstrate synchronous iteration with an array as below,\n\n     ```javascript\n     const iterable = [\"one\", \"two\", \"three\"];\n     const iterator = iterable[Symbol.iterator]();\n     console.log(iterator.next()); // { value: 'one', done: false }\n     console.log(iterator.next()); // { value: 'two', done: false }\n     console.log(iterator.next()); // { value: 'three', done: false }\n     console.log(iterator.next()); // { value: 'undefined, done: true }\n     ```"
+},
+{
+  "id": 236,
+  "question": "What is an event loop",
+  "answer": "The event loop is a process that continuously monitors both the call stack and the event queue and checks whether or not the call stack is empty. If the call stack is empty and there are pending events in the event queue, the event loop dequeues the event from the event queue and pushes it to the call stack. The call stack executes the event, and any additional events generated during the execution are added to the end of the event queue.\n\n     **Note:** The event loop allows Node.js to perform non-blocking I/O operations, even though JavaScript is single-threaded, by offloading operations to the system kernel whenever possible. Since most modern kernels are multi-threaded, they can handle multiple operations executing in the background."
+},
+{
+  "id": 237,
+  "question": "What is call stack",
+  "answer": "Call Stack is a data structure for javascript interpreters to keep track of function calls(creates execution context) in the program. It has two major actions,\n\n     1. Whenever you call a function for its execution, you are pushing it to the stack.\n     2. Whenever the execution is completed, the function is popped out of the stack.\n\n     Let's take an example and it's state representation in a diagram format\n\n     ```javascript\n     function hungry() {\n       eatFruits();\n     }\n     function eatFruits() {\n       return \"I'm eating fruits\";\n     }\n\n     // Invoke the `hungry` function\n     hungry();\n     ```\n\n     The above code processed in a call stack as below,\n\n     3. Add the `hungry()` function to the call stack list and execute the code.\n     4. Add the `eatFruits()` function to the call stack list and execute the code.\n     5. Delete the `eatFruits()` function from our call stack list.\n     6. Delete the `hungry()` function from the call stack list since there are no items anymore.\n\n     ![Screenshot](images/call-stack.png)"
+},
+{
+  "id": 238,
+  "question": "What is an event queue",
+  "answer": "The event queue follows the queue data structure. It stores async callbacks to be added to the call stack. It is also known as the Callback Queue or Macrotask Queue.\n\n     Whenever the call stack receives an async function, it is moved into the Web API. Based on the function, Web API executes it and awaits the result. Once it is finished, it moves the callback into the event queue (the callback of the promise is moved into the microtask queue).\n\n     The event loop constantly checks whether or not the call stack is empty. Once the call stack is empty and there is a callback in the event queue, the event loop moves the callback into the call stack. But if there is a callback in the microtask queue as well, it is moved first. The microtask queue has a higher priority than the event queue."
+},
+{
+  "id": 239,
+  "question": "What is a decorator",
+  "answer": "A decorator is an expression that evaluates to a function and that takes the target, name, and decorator descriptor as arguments. Also, it optionally returns a decorator descriptor to install on the target object. Let's define admin decorator for user class at design time,\n\n     ```javascript\n     function admin(isAdmin) {\n        return function(target) {\n            target.isAdmin = isAdmin;\n        }\n     }\n\n     @admin(true)\n     class User() {\n     }\n     console.log(User.isAdmin); //true\n\n      @admin(false)\n      class User() {\n      }\n      console.log(User.isAdmin); //false\n     ```"
+},
+{
+  "id": 240,
+  "question": "What are the properties of Intl object",
+  "answer": "Below are the list of properties available on Intl object,\n\n     1. **Collator:** These are the objects that enable language-sensitive string comparison.\n     2. **DateTimeFormat:** These are the objects that enable language-sensitive date and time formatting.\n     3. **ListFormat:** These are the objects that enable language-sensitive list formatting.\n     4. **NumberFormat:** Objects that enable language-sensitive number formatting.\n     5. **PluralRules:** Objects that enable plural-sensitive formatting and language-specific rules for plurals.\n     6. **RelativeTimeFormat:** Objects that enable language-sensitive relative time formatting."
+},
+{
+  "id": 241,
+  "question": "What is an Unary operator",
+  "answer": "The unary(+) operator is used to convert a variable to a number.If the variable cannot be converted, it will still become a number but with the value NaN. Let's see this behavior in an action.\n\n     ```javascript\n     var x = \"100\";\n     var y = +x;\n     console.log(typeof x, typeof y); // string, number\n\n     var a = \"Hello\";\n     var b = +a;\n     console.log(typeof a, typeof b, b); // string, number, NaN\n     ```"
+},
+{
+  "id": 242,
+  "question": "How do you sort elements in an array",
+  "answer": "The sort() method is used to sort the elements of an array in place and returns the sorted array. The default sort order is ascending, based on the string Unicode order. The example usage would be as below,\n\n     ```javascript\n     var months = [\"Aug\", \"Sep\", \"Jan\", \"June\"];\n     months.sort();\n     console.log(months); //  [\"Aug\", \"Jan\", \"June\", \"Sep\"]\n     ```"
+},
+{
+  "id": 243,
+  "question": "What is the purpose of compareFunction while sorting arrays",
+  "answer": "The compareFunction is used to define the sort order. If omitted, the array elements are converted to strings, then sorted according to each character's Unicode code point value. \n     \n     Let's take an example to see the usage of compareFunction,\n\n     ```javascript\n     let numbers = [1, 2, 5, 3, 4];\n     numbers.sort((a, b) => b - a);\n     console.log(numbers); // [5, 4, 3, 2, 1]\n     ```"
+},
+{
+  "id": 244,
+  "question": "How do you reversing an array",
+  "answer": "You can use the reverse() method to reverse the elements in an array. This method is useful to sort an array in descending order. Let's see the usage of reverse() method in an example,\n\n     ```javascript\n     let numbers = [1, 2, 5, 3, 4];\n     numbers.sort((a, b) => b - a);\n     numbers.reverse();\n     console.log(numbers); // [1, 2, 3, 4 ,5]\n     ```"
+},
+{
+  "id": 245,
+  "question": "How do you find min and max value in an array",
+  "answer": "You can use `Math.min` and `Math.max` methods on array variables to find the minimum and maximum elements within an array. Let's create two functions to find the min and max value with in an array,\n\n     ```javascript\n     var marks = [50, 20, 70, 60, 45, 30];\n     function findMin(arr) {\n       return Math.min.apply(null, arr);\n     }\n     function findMax(arr) {\n       return Math.max.apply(null, arr);\n     }\n\n     console.log(findMin(marks));\n     console.log(findMax(marks));\n     ```"
+},
+{
+  "id": 246,
+  "question": "How do you find min and max values without Math functions",
+  "answer": "You can write functions which loop through an array comparing each value with the lowest value or highest value to find the min and max values. Let's create those functions to find min and max values,\n\n     ```javascript\n     var marks = [50, 20, 70, 60, 45, 30];\n     function findMin(arr) {\n       var length = arr.length;\n       var min = Infinity;\n       while (length--) {\n         if (arr[length] < min) {\n           min = arr[length];\n         }\n       }\n       return min;\n     }\n\n     function findMax(arr) {\n       var length = arr.length;\n       var max = -Infinity;\n       while (length--) {\n         if (arr[length] > max) {\n           max = arr[length];\n         }\n       }\n       return max;\n     }\n\n     console.log(findMin(marks));\n     console.log(findMax(marks));\n     ```"
+},
+{
+  "id": 247,
+  "question": "What is an empty statement and purpose of it",
+  "answer": "The empty statement is a semicolon (;) indicating that no statement will be executed, even if JavaScript syntax requires one. Since there is no action with an empty statement you might think that it's usage is quite less, but the empty statement is occasionally useful when you want to create a loop that has an empty body. For example, you can initialize an array with zero values as below,\n\n     ```javascript\n     // Initialize an array a\n     for (let i = 0; i < a.length; a[i++] = 0);\n     ```"
+},
+{
+  "id": 248,
+  "question": "How do you get metadata of a module",
+  "answer": "You can use the `import.meta` object which is a meta-property exposing context-specific meta data to a JavaScript module. It contains information about the current module, such as the module's URL. In browsers, you might get different meta data than NodeJS.\n\n     ```javascript\n     <script type=\"module\" src=\"welcome-module.js\"></script>;\n     console.log(import.meta); // { url: \"file:///home/user/welcome-module.js\" }\n     ```"
+},
+{
+  "id": 249,
+  "question": "What is a comma operator",
+  "answer": "The comma operator is used to evaluate each of its operands from left to right and returns the value of the last operand. This is totally different from comma usage within arrays, objects, and function arguments and parameters. For example, the usage for numeric expressions would be as below,\n\n     ```javascript\n     var x = 1;\n     x = (x++, x);\n\n     console.log(x); // 2\n     ```"
+},
+{
+  "id": 250,
+  "question": "What is the advantage of a comma operator",
+  "answer": "It is normally used to include multiple expressions in a location that requires a single expression. One of the common usages of this comma operator is to supply multiple parameters in a `for` loop. For example, the below for loop uses multiple expressions in a single location using comma operator,\n\n     ```javascript\n     for (var a = 0, b =10; a <= 10; a++, b--)\n     ```\n\n     You can also use the comma operator in a return statement where it processes before returning.\n\n     ```javascript\n     function myFunction() {\n       var a = 1;\n       return (a += 10), a; // 11\n     }\n     ```"
 }
 ]
