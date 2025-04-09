@@ -7,7 +7,7 @@
 {
   "id": 2,
   "question": "What is a prototype chain",
-  "answer": "**Prototype chaining** is used to build new types of objects based on existing ones. It is similar to inheritance in a class based language. i.e, When you create an object using a constructor function or a class, the created object inherits properties from a prototype object.\n\n   The prototype on object instance is available through **Object.getPrototypeOf(object)** or **\\_\\_proto\\_\\_** property whereas prototype on constructor function is available through **Object.prototype**.\n\n   ![Screenshot](images/prototype_chain.png)"
+  "answer": "Prototype chaining** is used to build new types of objects based on existing ones. It is similar to inheritance in a class based language. i.e, When you create an object using a constructor function or a class, the created object inherits properties from a prototype object.\n\n   The prototype on object instance is available through **Object.getPrototypeOf(object)** or **\\_\\_proto\\_\\_** property whereas prototype on constructor function is available through **Object.prototype**."
 },
 {
   "id": 3,
